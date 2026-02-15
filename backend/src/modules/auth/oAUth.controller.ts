@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import axios from "axios";
 import jwt from "jsonwebtoken";
+import { User } from "../user/user.model";
 
 // Environment variables you'll need to set:
 // GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REDIRECT_URI
@@ -309,21 +310,23 @@ class OAuthController {
   }
 
   // TODO: Implement this function to save/update user in your database
-  // async function findOrCreateUser(oauthUser: OAuthUser) {
+  // findOrCreateUser = async (oauthUser: OAuthUser) => {
   //   // Check if user exists with this provider and providerId
   //   let user = await User.findOne({
-  //     provider: oauthUser.provider,
-  //     providerId: oauthUser.providerId,
+  //     where: {
+  //       provider: oauthUser.provider,
+  //       providerId: oauthUser.providerId,
+  //     },
   //   });
-  //
+  
   //   if (!user) {
   //     // Create new user
   //     user = await User.create({
   //       provider: oauthUser.provider,
-  //       providerId: oauthUser.providerId,
   //       email: oauthUser.email,
   //       name: oauthUser.name,
-  //       picture: oauthUser.picture,
+  //       passwordHash: "",
+  //       role: "buyer",
   //     });
   //   } else {
   //     // Update existing user info
@@ -331,7 +334,7 @@ class OAuthController {
   //     user.picture = oauthUser.picture;
   //     await user.save();
   //   }
-  //
+  
   //   return user;
   // }
 }

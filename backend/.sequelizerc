@@ -1,0 +1,11 @@
+const path = require('path');
+
+// Register ts-node to support TypeScript migrations
+require('ts-node/register');
+
+module.exports = {
+  'config': path.resolve('src/database', 'config.js'),
+  'models-path': path.resolve('src/modules'),
+  'seeders-path': path.resolve('src/database', 'seeders'),
+  'migrations-path': path.resolve('src/database', 'migrations')
+};

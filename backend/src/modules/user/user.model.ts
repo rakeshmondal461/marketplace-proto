@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional } from "sequelize";
-import { sequelize } from "../../infra/database";
+import { sequelize } from "../../database/dbConfig";
 
 export type UserRole = "buyer" | "seller" | "admin";
 

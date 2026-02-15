@@ -1,7 +1,12 @@
 import { Router } from "express";
 import { Product } from "./product.model";
 import { Category } from "../category/category.model";
-import { authenticateJwt, authorizeRoles, AuthRequest } from "../../middleware/auth";
+import {
+  authenticateJwt,
+  authorizeRoles,
+  AuthRequest,
+} from "../../middleware/auth";
+import { productController } from "./product.controller";
 
 export const productRouter = Router();
 
@@ -18,22 +23,7 @@ productRouter.post(
   "/",
   authenticateJwt,
   authorizeRoles("seller"),
-  async (req: AuthRequest, res) => {
-    const { title, description, price, categoryId } = req.body;
-    if (!title || !description || !price || !categoryId) {
-      return res.status(400).json({ message: "Missing fields" });
-    }
-
-    const product = await Product.create({
-      title,
-      description,
-      price,
-      categoryId,
-      sellerId: req.user!.id,
-    });
-
-    res.status(201).json(product);
-  }
+  productController.createProduct,
 );
 
 // Admin can delete any product
@@ -41,10 +31,5 @@ productRouter.delete(
   "/:id",
   authenticateJwt,
   authorizeRoles("admin"),
-  async (req, res) => {
-    const id = Number(req.params.id);
-    await Product.destroy({ where: { id } });
-    res.status(204).send();
-  }
+  productController.deleteProduct,
 );
-

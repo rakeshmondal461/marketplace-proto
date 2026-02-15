@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional } from "sequelize";
-import { sequelize } from "../../infra/database";
+import { sequelize } from "../../database/dbConfig";
 import { User } from "../user/user.model";
 import { Category } from "../category/category.model";
 
@@ -7,6 +7,7 @@ interface ProductAttributes {
   id: number;
   title: string;
   description: string;
+  imageUrl?: string;
   price: number;
   sellerId: number;
   categoryId: number;
@@ -23,6 +24,7 @@ export class Product
   public id!: number;
   public title!: string;
   public description!: string;
+  public imageUrl!: string;
   public price!: number;
   public sellerId!: number;
   public categoryId!: number;
@@ -45,6 +47,10 @@ Product.init(
     description: {
       type: DataTypes.TEXT,
       allowNull: false,
+    },
+    imageUrl: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     price: {
       type: DataTypes.FLOAT,

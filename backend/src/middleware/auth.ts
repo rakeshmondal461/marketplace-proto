@@ -38,7 +38,7 @@ export function authenticateJwt(
       id: payload.id,
       email: payload.email,
       role: payload.role,
-    } as any;
+    } as AuthRequest["user"];
     return next();
   } catch {
     return res.status(401).json({ message: "Invalid token" });
